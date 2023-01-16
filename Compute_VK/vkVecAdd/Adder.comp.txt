@@ -1,0 +1,31 @@
+#version 450
+
+layout (local_size_x = 256, local_size_y = 1, local_size_z = 1) in;
+
+layout (binding=0) buffer inputBuffer1
+{
+    float valueIn1[];
+};
+
+layout (binding=1) buffer inputBuffer2
+{
+    float valueIn2[];
+};
+
+layout (binding=2) buffer outputBuffer
+{
+    float valueOut[];
+};
+
+//uniform float numberOfElements;
+
+void main()
+{
+    uint iIndex=gl_LocalInvocationID.x + gl_WorkGroupID.x*gl_WorkGroupSize.x;
+    //uint iIndex = gl_GlobalInvocationID.x;
+    //if(iIndex < numberOfElements)
+    {
+        valueOut[iIndex] = valueIn1[iIndex] + valueIn2[iIndex];
+    }
+        
+}
