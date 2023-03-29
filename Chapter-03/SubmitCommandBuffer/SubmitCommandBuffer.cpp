@@ -160,8 +160,10 @@ int main(int argc, char **argv, char **envp)
     deviceLayerList.resize(iDeviceLayerCount);
     vkEnumerateDeviceLayerProperties(g_vlkReqPhysicalDevice, &iDeviceLayerCount, deviceLayerList.data());
 
+    std::cout << "Device Layer names:" << std::endl;
     for (size_t i = 0; i < deviceLayerList.size(); i++)
     {
+        std::cout << deviceLayerList[i].layerName << std::endl;
         devLayerNames.push_back(deviceLayerList[i].layerName);
     }
 
@@ -175,6 +177,20 @@ int main(int argc, char **argv, char **envp)
     vkEnumerateDeviceExtensionProperties(g_vlkReqPhysicalDevice, nullptr, &iDeviceExtensionCount, nullptr);
     deviceExtensionList.resize(iDeviceExtensionCount);
     vkEnumerateDeviceExtensionProperties(g_vlkReqPhysicalDevice, nullptr, &iDeviceExtensionCount, deviceExtensionList.data());
+
+    std::cout << "Device Extension names:" << std::endl;
+    for (size_t i = 0; i < deviceExtensionList.size(); i++)
+    {
+        if (strcmp("VK_EXT_buffer_device_address", deviceExtensionList[i].extensionName) == 0)
+        {
+            continue;
+        }
+        // if ((strnicmp("VK_KHR_", deviceExtensionList[i].extensionName, strlen("VK_KHR_")) == 0) || (strnicmp("VK_EXT_", deviceExtensionList[i].extensionName, strlen("VK_EXT_")) == 0))
+        {
+            devExtensionNames.push_back(deviceExtensionList[i].extensionName);
+            std::cout << deviceExtensionList[i].extensionName << std::endl;
+        }
+    }
 
     deviceCreateInfo.enabledExtensionCount = (uint32_t)devExtensionNames.size();
     deviceCreateInfo.ppEnabledExtensionNames = devExtensionNames.data();
