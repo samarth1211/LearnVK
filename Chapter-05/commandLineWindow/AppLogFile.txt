@@ -1,9 +1,0 @@
-File Opened Successfully. 
-In WM_SIZE()
-Window Created
-Create Instance Complete
-Obtained desired physical device
-Device ID = 2135999580624
-Initialize Complete
-Destroyed Instance
-Closing the Log File
